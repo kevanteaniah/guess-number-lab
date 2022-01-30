@@ -8,25 +8,27 @@ const game = {
   secretNum: 7,
   prevGuesses: [],
   play: function() {
-    this.getGuess()
-    let newNum = this.getGuess()
+    
     
     this.secretNum = Math.floor(Math.random() * 
       (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
       
-      console.log(this.prevGuesses)
-      console.log(this.secretNum)
-      if(newNum !== this.secretNum){
-        this.prevGuesses.push(newNum)
-        
+      while(this.prevGuesses[this.prevGuesses.length - 1] !== this.secretNum){
+
+          this.prevGuesses.push(this.getGuess())
+          this.render()
       }
-      if(newNum === this.secretNum){
-        console.log(this.prevGuesses)
-        return `Congrats! You guessed the number in ${prevGuesses.length}!`
-      } else{
-        this.prevGuesses.push(newNum)
-        return `Your guess`
-      } 
+
+
+
+
+      // console.log(this.prevGuesses)
+      // console.log(this.secretNum)
+      // if(newNum !== this.secretNum){
+      //   this.prevGuesses.push(newNum)
+      //   console.log(this.prevGuesses)
+      // }
+      
       
 
       
@@ -35,10 +37,22 @@ const game = {
   },
   getGuess: function(){
     let guess
-    guess = parseInt(prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}`))
-    console.log(guess)
+    while(isNaN(guess) || guess <= this.smallestNum || guess >= this.biggestNum){
+    guess = parseInt(prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}`))}
+    
+    return guess
   }, 
   
+  render: function(){
+    if(this.prevGuesses[this.prevGuesses.length - 1] === this.secretNum){ 
+      alert(`Congrats! You guessed the number in ${this.prevGuesses.length}!`)
+
+    } else if(this.prevGuesses[this.prevGuesses.length - 1] > this.secretNum){
+      alert(`Too High!`)
+    } else{
+      alert(`Too Low!`)
+    }
+  }
   
 } 
 // console.log(game.play)
@@ -46,7 +60,7 @@ console.log(game.prevGuesses)
 game.play()
 
 // while (newNum !== this.secretNum){
-      //   this.prevGuesses.push(newNum){ return `Your guess`
+//         this.prevGuesses.push(newNum){ return `Your guess`
           
       //   } (newNum === this.secretNum){
       //     return `Congrats! You guessed the number in ${prevGuesses.length}!`
